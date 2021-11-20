@@ -11,10 +11,10 @@ class _BeritaPageState extends State<BeritaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(71, 63, 151, 1),
+      // backgroundColor: const Color.fromRGBO(33, 150, 243, 0.7),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color.fromRGBO(71, 63, 151, 1),
+        backgroundColor: const Color.fromRGBO(33, 150, 243, 1),
         toolbarHeight: 60,
         title: const Text('Berita Kesehatan Terbaru'),
         actions: [
@@ -51,7 +51,7 @@ class _BeritaPageState extends State<BeritaPage> {
                       children: const [
                         Text(
                           "LOADING DATA",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
@@ -63,7 +63,7 @@ class _BeritaPageState extends State<BeritaPage> {
                     itemBuilder: (context, i) {
                       return Card(
                         shadowColor: Colors.black,
-                        color: Colors.white,
+                        color: Colors.white.withOpacity(0.8),
                         child: ListTile(
                           contentPadding: const EdgeInsets.all(8),
                           title: Padding(

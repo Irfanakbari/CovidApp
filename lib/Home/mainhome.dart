@@ -6,6 +6,7 @@ import 'package:appscovid/Home/Rs/listrs.dart';
 import 'package:appscovid/Home/Statistik/statistik.dart';
 import 'package:flutter/material.dart';
 import 'homescreen.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -32,12 +33,16 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: tab[navIndex],
+      body: DoubleBackToCloseApp(
+          snackBar: const SnackBar(
+            content: Text('Tekan sekali lagi untuk keluar'),
+          ),
+          child: tab[navIndex]),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color.fromRGBO(71, 63, 151, 1),
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.yellowAccent,
+        backgroundColor: Colors.white,
+        unselectedItemColor: Colors.grey.shade700,
+        selectedItemColor: const Color.fromRGBO(33, 150, 243, 1),
         currentIndex: navIndex,
         onTap: selectNavBot,
         items: const [

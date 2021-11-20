@@ -175,7 +175,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
               },
               icon: const Icon(Icons.info_outline)),
           automaticallyImplyLeading: false,
-          backgroundColor: const Color.fromRGBO(71, 63, 151, 1),
+          backgroundColor: const Color.fromRGBO(33, 150, 243, 1),
           elevation: 0.0,
           actions: <Widget>[
             Padding(
@@ -220,16 +220,17 @@ class _HomeScreen2State extends State<HomeScreen2> {
       body: ListView(
         children: [
           Container(
-              height: 300,
+              height: 270,
               decoration: const BoxDecoration(
-                color: Color.fromRGBO(71, 63, 151, 1),
+                color: Color.fromRGBO(33, 150, 243, 1),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40),
                     bottomRight: Radius.circular(40)),
               ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.04,
+                    vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -266,7 +267,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 45),
+                    const SizedBox(height: 35),
                     Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: Row(
@@ -294,7 +295,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                             child: Text(
                               'Jika Kamu Merasakan Sakit Gejala Covid-19 Segera Hubungi Layanan Kesehatan Terdekat',
                               style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.normal),
                             ),
@@ -347,8 +348,8 @@ class _HomeScreen2State extends State<HomeScreen2> {
                                         RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(20))),
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.blue)),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.green)),
                                 onPressed: () {
                                   _message();
                                 },

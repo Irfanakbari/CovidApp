@@ -93,16 +93,15 @@ class JenisKelamin {
 }
 
 class KelompokUmur {
-  KelompokUmur({
-    this.docCount,
-    this.usia,
-  });
+  KelompokUmur({this.docCount, this.usia, this.key});
 
   dynamic docCount;
   dynamic usia;
+  dynamic key;
 
   factory KelompokUmur.fromJson(Map<String, dynamic> json) => KelompokUmur(
         docCount: json["doc_count"],
+        key: json["key"],
       );
 }
 

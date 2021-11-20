@@ -1,5 +1,4 @@
 import 'package:appscovid/Login/loginpage.dart';
-import 'package:appscovid/tes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

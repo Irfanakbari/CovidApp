@@ -1,9 +1,11 @@
+import 'package:appscovid/Home/cardpencegahan.dart';
 import 'package:appscovid/Services/api.dart';
 import 'package:appscovid/Services/apiprovinsi.dart';
 import 'package:appscovid/Services/location.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:intl/intl.dart';
 
 class CardHome extends StatefulWidget {
   @override
@@ -25,15 +27,16 @@ class _CardHomeState extends State<CardHome> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.05, vertical: 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Center(
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
+              width: MediaQuery.of(context).size.width,
               height: 50,
-              child: FutureBuilder<dynamic>(
+              child: FutureBuilder<Placemark>(
                   future: LocationServices.getCurrentPosition(),
                   builder: (context, snapshot) {
                     if (snapshot.data == null) {
@@ -67,7 +70,7 @@ class _CardHomeState extends State<CardHome> {
                                 i++) {
                               if (dataa.data!.listData![i].key
                                   .toString()
-                                  .contains(snapshot.data.administrativeArea
+                                  .contains(snapshot.data!.administrativeArea!
                                       .toUpperCase())) {
                                 array = i;
                               }
@@ -76,12 +79,12 @@ class _CardHomeState extends State<CardHome> {
                               color: (dataa.data!.listData![array].penambahan
                                           .positif >
                                       9)
-                                  ? Colors.yellowAccent
+                                  ? Colors.yellow
                                   : (dataa.data!.listData![array].penambahan
                                               .positif >
                                           12)
-                                      ? Colors.redAccent
-                                      : Colors.greenAccent,
+                                      ? Colors.red
+                                      : Colors.green,
                               elevation: 10,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -91,13 +94,24 @@ class _CardHomeState extends State<CardHome> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Icon(Icons.location_pin),
+                                        const Icon(
+                                          Icons.location_pin,
+                                          color: Colors.white,
+                                        ),
                                         (snapshot.hasData)
-                                            ? Text(snapshot.data
-                                                    .subAdministrativeArea +
-                                                ', ' +
+                                            ? Text(
+                                                // snapshot.data
+                                                //         .subAdministrativeArea +
+                                                //     ', ' +
                                                 snapshot
-                                                    .data.administrativeArea)
+                                                    .data!.administrativeArea
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
                                             : const Text('Get Location..')
                                       ],
                                     ),
@@ -126,165 +140,9 @@ class _CardHomeState extends State<CardHome> {
             ],
           ),
           const SizedBox(height: 25),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  AlertDialog alert = AlertDialog(
-                    title: const Text("Jaga Jarak"),
-                    content: const Text(
-                        "Data yang dimiliki pemerintah, sebaran droplet sejauh 1 meter dan dapat menempel pada benda sekitar. Oleh karenanya mereka yang berjarak kurang dari 1 meter dan memegang benda yang terpapar droplet kemudian tangan yang sudah tersemar menyentuh area wajah, sangat memungkinkan terjadinya penularan."),
-                    actions: <Widget>[
-                      FlatButton(
-                        child: const Text('Close'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      )
-                    ],
-                  );
-
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return alert;
-                    },
-                  );
-                },
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/img/1.png',
-                          width: 100,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Row(
-                      children: const [
-                        Text(
-                          'Jaga Jarak',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      AlertDialog alert = AlertDialog(
-                        title: const Text("Cuci Tangan"),
-                        content: const Text(
-                            "Cucilah tangan dengan air mengalir dan sabun, setidaknya selama 20 detik. Pastikan seluruh bagian tangan tercuci hingga bersih, termasuk punggung tangan, pergelangan tangan, sela-sela jari, dan kuku.Setelah itu, keringkan tangan menggunakan tisu, handuk bersih, atau mesin pengering tangan."),
-                        actions: <Widget>[
-                          FlatButton(
-                            child: const Text('Close'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ],
-                      );
-
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return alert;
-                        },
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/img/2.png',
-                              width: 100,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Row(
-                          children: const [
-                            Text(
-                              'Cuci Tangan',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      AlertDialog alert = AlertDialog(
-                        title: const Text("Pakai Masker"),
-                        content: const Text(
-                            "Menggunakan masker pada saat pandemi COVID-19 merupakan hal yang wajib dipakai terutama ketika bepergian keluar rumah. Masker menjadi hal yang esensial karena mampu menangkal virus ataupun bakteri yang akan masuk ke mulut ataupun hidung seseorang."),
-                        actions: <Widget>[
-                          FlatButton(
-                            child: Text('Close'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ],
-                      );
-
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return alert;
-                        },
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/img/3.png',
-                              width: 100,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Row(
-                          children: const [
-                            Text(
-                              'Pakai Masker',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
+          const Pencegahan(),
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
           const Divider(
             color: Colors.grey,
@@ -325,250 +183,124 @@ class _CardHomeState extends State<CardHome> {
           const SizedBox(
             height: 25,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Container(
-                    width: 350,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            colorFilter: ColorFilter.mode(
-                                Colors.orangeAccent.withOpacity(0.7),
-                                BlendMode.srcATop),
-                            image: const AssetImage('assets/img/positif.png')),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.orange.withOpacity(0.5),
-                            spreadRadius: 8,
-                            blurRadius: 9,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ],
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                'KASUS POSITIF',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FutureBuilder<Global>(
-                                future: Global.connectToAPI('positif'),
-                                builder: (context, snapshot) {
-                                  if (snapshot.data == null) {
-                                    return const CircularProgressIndicator();
-                                  } else if (snapshot.hasData) {
-                                    return Text(
-                                      (snapshot.data!.value.toString()) +
-                                          ' Jiwa',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25),
-                                    );
-                                  } else {
-                                    return const Text(
-                                      '0 Jiwa',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25),
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+          Container(
+            height: 100,
+            decoration: BoxDecoration(),
+            child: Card(
+              shadowColor: Colors.black,
+              color: Colors.orange,
+              child: ListTile(
+                  contentPadding: EdgeInsets.all(8),
+                  title: const Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      'Kasus Positif',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
                     ),
-                  )
-                ],
-              )
-            ],
+                  ),
+                  subtitle: FutureBuilder<Global>(
+                    future: Global.connectToAPI('positif'),
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return const Text('Mengambil Data ...');
+                      } else {
+                        return Text(
+                          snapshot.data!.value! + " Jiwa",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 18),
+                        );
+                      }
+                    },
+                  ),
+                  trailing: Image.asset('assets/img/positif.png')),
+            ),
           ),
           const SizedBox(
-            height: 30,
+            height: 25,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Container(
-                    width: 350,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            colorFilter: ColorFilter.mode(
-                                Colors.lightGreen.withOpacity(0.7),
-                                BlendMode.srcATop),
-                            image: const AssetImage('assets/img/heart.png')),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.green.withOpacity(0.5),
-                            spreadRadius: 8,
-                            blurRadius: 9,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ],
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                'SEMBUH',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FutureBuilder<Global>(
-                                future: Global.connectToAPI('sembuh'),
-                                builder: (context, snapshot) {
-                                  if (snapshot.data == null) {
-                                    return const CircularProgressIndicator();
-                                  } else if (snapshot.hasData) {
-                                    return Text(
-                                      snapshot.data!.value.toString() + ' Jiwa',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25),
-                                    );
-                                  } else {
-                                    return const Text(
-                                      '0 Jiwa',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25),
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+          Container(
+            height: 100,
+            decoration: BoxDecoration(),
+            child: Card(
+              shadowColor: Colors.black,
+              color: Colors.lightGreen,
+              child: ListTile(
+                  contentPadding: const EdgeInsets.all(8),
+                  title: const Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      'Kasus Sembuh',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
                     ),
-                  )
-                ],
-              )
-            ],
+                  ),
+                  subtitle: FutureBuilder<Global>(
+                    future: Global.connectToAPI('sembuh'),
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return const Text('Mengambil Data ...');
+                      } else {
+                        return Text(
+                          snapshot.data!.value! + " Jiwa",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 18),
+                        );
+                      }
+                    },
+                  ),
+                  trailing: Image.asset('assets/img/heart.png')),
+            ),
           ),
           const SizedBox(
-            height: 30,
+            height: 25,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Container(
-                    width: 350,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            colorFilter: ColorFilter.mode(
-                                Colors.redAccent.withOpacity(0.7),
-                                BlendMode.srcATop),
-                            image: const AssetImage('assets/img/death.png')),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.red.withOpacity(0.5),
-                            spreadRadius: 8,
-                            blurRadius: 9,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ],
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'MENINGGAL',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  FutureBuilder<Global>(
-                                    future: Global.connectToAPI('meninggal'),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.data == null) {
-                                        return const CircularProgressIndicator();
-                                      } else {
-                                        return Text(
-                                          snapshot.data!.value.toString() +
-                                              ' Jiwa',
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+          Container(
+            height: 100,
+            decoration: BoxDecoration(),
+            child: Card(
+              shadowColor: Colors.black,
+              color: Colors.red,
+              child: ListTile(
+                  contentPadding: EdgeInsets.all(8),
+                  title: const Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      'Kasus Meninggal',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
                     ),
-                  )
-                ],
-              )
-            ],
+                  ),
+                  subtitle: FutureBuilder<Global>(
+                    future: Global.connectToAPI('meninggal'),
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return const Text('Mengambil Data ...');
+                      } else {
+                        return Text(
+                          snapshot.data!.value! + " Jiwa",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 18),
+                        );
+                      }
+                    },
+                  ),
+                  trailing: Image.asset('assets/img/heart.png')),
+            ),
           ),
+
           const SizedBox(
             height: 40,
           ),

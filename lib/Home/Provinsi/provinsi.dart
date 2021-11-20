@@ -1,6 +1,8 @@
 import 'package:appscovid/Services/apiprovinsi.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:accordion/accordion.dart';
 
 class Provinsi extends StatefulWidget {
   @override
@@ -13,7 +15,7 @@ class _ProvinsiState extends State<Provinsi> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: const Color.fromRGBO(71, 63, 151, 1),
+        backgroundColor: const Color.fromRGBO(33, 150, 243, 1),
         toolbarHeight: 60,
         title: const Text('Statistik Per Provinsi'),
         actions: [
@@ -25,7 +27,7 @@ class _ProvinsiState extends State<Provinsi> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(1),
         child: FutureBuilder<Welcome>(
             future: Welcome.connectToVak(),
             builder: (context, snapshot) {
@@ -57,119 +59,169 @@ class _ProvinsiState extends State<Provinsi> {
                   ],
                 ));
               } else {
-                return ListView.builder(
-                    itemCount: snapshot.data!.listData!.length,
-                    itemBuilder: (context, i) {
-                      return SizedBox(
-                        height: 170,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(30), // if you need this
-                              side: BorderSide(
-                                color: Colors.green.withOpacity(0.8),
-                                width: 1,
-                              )),
-                          shadowColor: Colors.green,
-                          color: Colors.green,
-                          child: ListTile(
-                              contentPadding: EdgeInsets.all(8),
-                              title: Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Text(
-                                  snapshot.data!.listData![i].key,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 20,
-                                      fontFamily: 'Pattaya',
-                                      letterSpacing: 2),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                return Accordion(
+                    maxOpenSections: 1,
+                    headerBorderRadius: 2,
+                    headerBackgroundColor: Colors.blue[200],
+                    headerPadding: const EdgeInsets.all(15),
+                    children: [
+                      for (var i = 0; i < snapshot.data!.listData!.length; i++)
+                        AccordionSection(
+                          isOpen: false,
+                          header: Text(snapshot.data!.listData![i].key,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 17)),
+                          content: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      'Kasus : ' +
+                                          NumberFormat('###,###,###').format(
+                                              snapshot.data!.listData![i]
+                                                  .jumlahKasus),
+                                      style: const TextStyle(
+                                          color: Colors.orangeAccent,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                    'Sembuh : ' +
+                                        NumberFormat('###,###,###').format(
+                                            snapshot.data!.listData![i]
+                                                .jumlahSembuh),
+                                    style: const TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                      'Meninggal : ' +
+                                          NumberFormat('###,###,###').format(
+                                              snapshot.data!.listData![i]
+                                                  .jumlahMeninggal),
+                                      style: const TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold)),
+                                ],
                               ),
-                              subtitle: Column(
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: const [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 25, bottom: 10),
+                                    child: SizedBox(
+                                      child: Text(
+                                        'Jenis Kelamin : ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Positif : ' +
-                                            NumberFormat('###,###,###').format(
-                                                snapshot.data!.listData![i]
-                                                    .jumlahKasus) +
-                                            " Jiwa",
-                                        style: const TextStyle(
-                                            color: Colors.yellow,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 16,
-                                            fontFamily: 'Graphik'),
+                                  Text(
+                                      'Laki-Laki : ' +
+                                          NumberFormat('###,###,###').format(
+                                              snapshot.data!.listData![i]
+                                                  .jenisKelamin![0].docCount),
+                                      style: const TextStyle()),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.07,
+                                  ),
+                                  Text(
+                                    'Perempuan : ' +
+                                        NumberFormat('###,###,###').format(
+                                            snapshot.data!.listData![i]
+                                                .jenisKelamin![1].docCount),
+                                    style: const TextStyle(),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: const [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 15, bottom: 10),
+                                    child: SizedBox(
+                                      child: Text(
+                                        'Kelompok Usia : ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Dirawat : ' +
-                                            NumberFormat('###,###,###').format(
-                                                snapshot.data!.listData![i]
-                                                    .jumlahDirawat) +
-                                            " Jiwa",
-                                        style: const TextStyle(
-                                            color: Colors.yellow,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 16,
-                                            fontFamily: 'Graphik'),
+                                      for (var j = 0;
+                                          j <
+                                              snapshot.data!.listData![i]
+                                                  .kelompokUmur!.length;
+                                          j++)
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 80,
+                                              child: Text(
+                                                  'Usia ' +
+                                                      snapshot
+                                                          .data!
+                                                          .listData![i]
+                                                          .kelompokUmur![j]
+                                                          .key,
+                                                  style: const TextStyle()),
+                                            ),
+                                            const SizedBox(
+                                              width: 12,
+                                            ),
+                                            Text(' :  ' +
+                                                NumberFormat('###,###,###')
+                                                    .format(snapshot
+                                                        .data!
+                                                        .listData![i]
+                                                        .kelompokUmur![j]
+                                                        .docCount))
+                                          ],
+                                        ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.07,
                                       ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Sembuh : ' +
-                                            NumberFormat('###,###,###').format(
-                                                snapshot.data!.listData![i]
-                                                    .jumlahDirawat) +
-                                            " Jiwa",
-                                        style: const TextStyle(
-                                            color: Colors.yellow,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 16,
-                                            fontFamily: 'Graphik'),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Meninggal : ' +
-                                            NumberFormat('###,###,###').format(
-                                                snapshot.data!.listData![i]
-                                                    .jumlahMeninggal) +
-                                            " Jiwa",
-                                        style: const TextStyle(
-                                            color: Colors.yellow,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 16),
-                                      ),
+                                      // Text(
+                                      //   'Perempuan : ' +
+                                      //       NumberFormat('###,###,###').format(
+                                      //           snapshot.data!.listData![i]
+                                      //               .jenisKelamin![1].docCount),
+                                      //   style: const TextStyle(),
+                                      // ),
                                     ],
                                   ),
                                 ],
                               ),
-                              trailing: Image.asset('assets/img/lokasi.png')),
+                            ],
+                          ),
                         ),
-                      );
-                    });
+                      //
+                    ]);
               }
             }),
       ),
