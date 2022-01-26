@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Pencegahan extends StatelessWidget {
   const Pencegahan({Key? key}) : super(key: key);
@@ -44,16 +43,6 @@ class Pencegahan extends StatelessWidget {
                       ),
                     ],
                   ),
-
-                  // Row(
-                  //   children: const [
-                  //     Text(
-                  //       'Cuci Tangan',
-                  //       style: TextStyle(
-                  //           fontWeight: FontWeight.bold, fontSize: 16),
-                  //     )
-                  //   ],
-                  // ),
                 ],
               ),
             ),
@@ -94,16 +83,6 @@ class Pencegahan extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      // Row(
-                      //   children: const [
-                      //     Text(
-                      //       'Cuci Tangan',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 16),
-                      //     )
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -146,16 +125,6 @@ class Pencegahan extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      // Row(
-                      //   children: const [
-                      //     Text(
-                      //       'Pakai Masker',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 16),
-                      //     )
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -198,15 +167,6 @@ class Pencegahan extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Row(
-                      //   children: const [
-                      //     Text(
-                      //       'Pakai Masker',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 16),
-                      //     )
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -249,15 +209,6 @@ class Pencegahan extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Row(
-                      //   children: const [
-                      //     Text(
-                      //       'Pakai Masker',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 16),
-                      //     )
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -300,15 +251,6 @@ class Pencegahan extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Row(
-                      //   children: const [
-                      //     Text(
-                      //       'Pakai Masker',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 16),
-                      //     )
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -351,15 +293,6 @@ class Pencegahan extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Row(
-                      //   children: const [
-                      //     Text(
-                      //       'Pakai Masker',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 16),
-                      //     )
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),

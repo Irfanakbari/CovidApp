@@ -1,3 +1,4 @@
+import 'package:appscovid/Home/Statistik/infoapp.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:appscovid/Login/loginpage.dart';
@@ -59,114 +60,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   animType: AnimType.SCALE,
                   body: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Center(
-                          child: Text(
-                            'Aplikasi CovidApp',
-                            style: TextStyle(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Center(
-                          child: Text(
-                            'Aplikasi ini dibuat sebagai Projek Tugas Akhir IMK (Interaksi Manusia dan Komputer) serta memberikan kemudahan bagi pengguna untuk menemukan Rumah Sakit Rujukan apabila terpapar Covid-19, serta memantau perkembangan Covid-19 di Indonesia maupun secara Global',
-                            style: TextStyle(
-                                fontStyle: FontStyle.normal, fontSize: 16),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          'Anggota Kelompok : ',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '- Jimmi Eduard Simangunsong',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '- Rizka Aulia Putri',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '- Delpiero',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Center(
-                          child: Text(
-                            'Aplikasi ini dibuat dengan menggunakan Flutter dan Bahasa Pemrograman Dart. Sumber data pada aplikasi ini berasal dari : ',
-                            style: TextStyle(
-                                fontStyle: FontStyle.normal, fontSize: 16),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '- api.kawalcorona.com',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '- apicovid19indonesia-v2.vercel.app',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '- vaksincovid19-api.vercel.app',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '- newsapi.org',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '- data.covid19.go.id',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal, fontSize: 16),
-                        ),
-                      ],
-                    ),
+                    child: InfoApp(),
                   ),
                   btnOkOnPress: () {
                     Get.back();

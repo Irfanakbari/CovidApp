@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
-
 class Welcome {
   static Future<Welcome> connectToVak() async {
     String apiurl = "https://data.covid19.go.id/public/api/prov.json";

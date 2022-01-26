@@ -8,10 +8,24 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'loginpage.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _username = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _email.dispose();
+    _password.dispose();
+    _username.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

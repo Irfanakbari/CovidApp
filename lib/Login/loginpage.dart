@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:appscovid/Auth/login.dart';
 import 'package:appscovid/Home/mainhome.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -7,9 +9,22 @@ import 'package:appscovid/Login/registerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _email = TextEditingController();
+
   final TextEditingController _password = TextEditingController();
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

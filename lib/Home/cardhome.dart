@@ -5,7 +5,6 @@ import 'package:appscovid/Services/location.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:intl/intl.dart';
 
 class CardHome extends StatefulWidget {
   @override
@@ -300,22 +299,9 @@ class _CardHomeState extends State<CardHome> {
                   trailing: Image.asset('assets/img/heart.png')),
             ),
           ),
-
           const SizedBox(
             height: 40,
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: const [
-          //     Text(
-          //       "Berita Terbaru",
-          //       style: TextStyle(
-          //           fontSize: 25,
-          //           fontWeight: FontWeight.bold,
-          //           fontFamily: 'ArchivoNarrow'),
-          //     ),
-          //   ],
-          // ),
         ],
       ),
     );
